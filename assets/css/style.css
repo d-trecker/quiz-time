@@ -1,0 +1,75 @@
+:root {
+  --primary-color: rgb(13, 13, 13);
+  --second-color: #2836f4;
+  --third-color: #ff901f;
+  --fourth-color: #03f5f5;
+  --fith-color: #626363;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  color: var(--fourth-color);
+}
+
+body {
+  background-color: black;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  width: 100%;
+  background-color: var(--fith-color);
+}
+
+.question {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--fourth-color);
+}
+
+.button-a {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 25px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: black;
+  color: var(--fourth-color);
+  border: solid 2px var(--second-color);
+}
+
+.quiz-start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: var(--fourth-color);
+}
+
+.button-start {
+  padding: 25px;
+  border-radius: 50px;
+  background-color: black;
+  color: var(--fourth-color);
+  padding: 25px;
+  font-weight: bold;
+  font-size: 5vw;
+  border: solid 2px var(--second-color);
+}
+
+.hide {
+  display: none;
+}
