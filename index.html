@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Code Quiz</title>
+    <title>Javascript Quiz</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
@@ -16,6 +16,13 @@
     </div>
 
     <div class="container">
+      <div class="quiz-start" id="start-quiz">
+        <p>
+          Welcome to the Javascript quiz. Test your might and knowledge and
+          click start! May luck be forever on your side!
+        </p>
+        <button id="start-button" class="button-start">Start</button>
+      </div>
       <div id="multiple-questions" class="hide">
         <div id="questions" class="question">Questions</div>
         <div id="answer-btn" class="button-a">
@@ -25,12 +32,8 @@
           <button class="button">4</button>
         </div>
       </div>
-      <div class="quiz-start" id="start-quiz">
-        <p>
-          Welcome to the Javascript quiz. Test your might and knowledge and
-          click start! May luck be forever on your side!
-        </p>
-        <button id="start-button" class="button-start">Start</button>
+      <div id="user-initials" class="hide">
+        <form action="Input your initials to save your score!"></form>
       </div>
     </div>
     <script src="./assets/js/script.js"></script>

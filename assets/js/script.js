@@ -7,6 +7,7 @@ const answerButton = document.getElementById("answer-btn");
 var score = 0;
 var count = 60;
 var time;
+let alertBox = false;
 
 let currentQuestion;
 
@@ -22,8 +23,9 @@ function countDown() {
   }
   if (count > 0) {
     count--;
-  } else {
+  } else if (count <= 0 && !alertBox) {
     debugger;
+    alertBox = true;
     return alert("You are out of time!");
   }
 }
@@ -48,11 +50,13 @@ function runQuiz() {
 function nextQ() {
   debugger;
   clearBoard();
+  console.log(currentQuestion);
   displayQuestion(quizQuestions[currentQuestion]);
 }
 
 //----Show Question + Answers ----
 function displayQuestion(q) {
+  console.log(q.q);
   question.innerText = q.q;
   q.answer.forEach((answer) => {
     const aButton = document.createElement("button");
@@ -79,30 +83,26 @@ function answerF(event) {
   var userSelection = event.target;
   var check = userSelection.dataset.check;
   rightOrWrong(check);
-  Array.from(answerButton.children).forEach((button) => {
-    rightOrWrong(button, button.dataset.check);
-  });
+  nextQ();
 }
 //rigth or wrong
 function rightOrWrong(check) {
   debugger;
   //determine if answer is correct or wrong
   if (check) {
-    //add to score
+    //increased score since answer was correct
     score++;
+    alert("Correct!");
     console.log(score);
-    //add 5 seconds to timer
-    count + 5;
-    console.log(count);
     // next question
     currentQuestion++;
     nextQ();
   } else {
-    score += 5;
-    console.log(score);
+    //time is subtracted since answer was wrong
     count -= 20;
-    quizQuestions++;
+    alert("Sorry! That was incorrect!");
     //next question
+    currentQuestion++;
     nextQ();
   }
 
