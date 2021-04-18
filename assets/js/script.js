@@ -8,6 +8,9 @@ var score = 0;
 var count = 60;
 var time;
 
+let currentQuestion;
+
+//stop HERE
 document.getElementById("timer-clock").innerHTML = "60";
 
 startButton.addEventListener("click", runQuiz);
@@ -36,15 +39,16 @@ document.getElementById("start-button").onclick = function () {
 function runQuiz() {
   startQuiz.classList.add("hide");
   container.classList.remove("hide");
-  quizQuestionI = 0;
+  currentQuestion = 0;
   countDown();
   nextQ();
 }
 
 //----Next Question Function----
 function nextQ() {
+  debugger;
   clearBoard();
-  displayQuestion(quizQuestions[0]);
+  displayQuestion(quizQuestions[currentQuestion]);
 }
 
 //----Show Question + Answers ----
@@ -73,8 +77,17 @@ function clearBoard() {
 function answerF(event) {
   debugger;
   var userSelection = event.target;
+  var check = userSelection.dataset.check;
+  rightOrWrong(check);
+  Array.from(answerButton.children).forEach((button) => {
+    rightOrWrong(button, button.dataset.check);
+  });
+}
+//rigth or wrong
+function rightOrWrong(check) {
+  debugger;
   //determine if answer is correct or wrong
-  if (userSelection.dataset.check === true) {
+  if (check) {
     //add to score
     score++;
     console.log(score);
@@ -82,10 +95,12 @@ function answerF(event) {
     count + 5;
     console.log(count);
     // next question
-    quizQuestions++;
+    currentQuestion++;
     nextQ();
   } else {
-    count - 5;
+    score += 5;
+    console.log(score);
+    count -= 20;
     quizQuestions++;
     //next question
     nextQ();
@@ -108,10 +123,10 @@ var quizQuestions = [
   {
     q: "What would be the proper syntax to start a media rule in CSS?",
     answer: [
-      { choice: "header", check: false },
-      { choice: "div", check: true },
-      { choice: "figure", check: false },
-      { choice: "aside", check: false },
+      { choice: "some", check: false },
+      { choice: "all", check: true },
+      { choice: "none", check: false },
+      { choice: "ok", check: false },
     ],
   },
   {
