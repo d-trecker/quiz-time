@@ -3,15 +3,16 @@ const startButton = document.getElementById("start-button");
 const startQuiz = document.getElementById("start-quiz");
 const question = document.getElementById("questions");
 const answerButton = document.getElementById("answer-btn");
+const userInt = document.getElementById("end-game");
+const saveBtn = document.getElementById("saveButton");
 
 var score = 0;
 var count = 60;
 var time;
-let alertBox = false;
 
+let alertBox = false;
 let currentQuestion;
 
-//stop HERE
 document.getElementById("timer-clock").innerHTML = "60";
 
 startButton.addEventListener("click", runQuiz);
@@ -24,7 +25,6 @@ function countDown() {
   if (count > 0) {
     count--;
   } else if (count <= 0 && !alertBox) {
-    debugger;
     alertBox = true;
     return alert("You are out of time!");
   }
@@ -48,10 +48,13 @@ function runQuiz() {
 
 //----Next Question Function----
 function nextQ() {
-  debugger;
-  clearBoard();
-  console.log(currentQuestion);
-  displayQuestion(quizQuestions[currentQuestion]);
+  if (quizQuestions.length > currentQuestion) {
+    clearBoard();
+    console.log(currentQuestion);
+    displayQuestion(quizQuestions[currentQuestion]);
+  } else {
+    endGame();
+  }
 }
 
 //----Show Question + Answers ----
@@ -79,19 +82,17 @@ function clearBoard() {
 
 //----Answer Function----
 function answerF(event) {
-  debugger;
   var userSelection = event.target;
   var check = userSelection.dataset.check;
   rightOrWrong(check);
-  nextQ();
 }
 //rigth or wrong
 function rightOrWrong(check) {
-  debugger;
   //determine if answer is correct or wrong
   if (check) {
     //increased score since answer was correct
     score++;
+    //have right pop up on the screen
     alert("Correct!");
     console.log(score);
     // next question
@@ -100,51 +101,90 @@ function rightOrWrong(check) {
   } else {
     //time is subtracted since answer was wrong
     count -= 20;
+    //have wrong right pop up on the screen
     alert("Sorry! That was incorrect!");
     //next question
     currentQuestion++;
     nextQ();
   }
+}
 
-  //have wrong or right pop up on the screen
+//----End Game Function----
+function endGame() {
+  container.classList.add("hide");
+  userInt.classList.remove("hide");
+  //calculate final score
+  var finalScore = (score / 4) * 100 + "%";
+  //display final score
+  var contain = document.getElementById("container");
+  var endGameText = document.createElement("div");
+  endGameText.style.padding = "10px";
+  endGameText.innerHTML =
+    "Congrats you have completed the quiz you scored " + finalScore + ".";
+  contain.prepend(endGameText);
+
+  //grabs username.
+  var userName = document.getElementById("user-initials");
+
+  userName.addEventListener("keyup", () => {
+    console.log(userName.value);
+  });
+
+  saveBtn.addEventListener("click", saveGame);
+
+  //----Save Button Function----
+  function saveGame() {
+    console.log(finalScore);
+    console.log(userName.value);
+    //grabs username input and highscore.
+    var userFinalScore = {
+      User: userName.value,
+      Score: finalScore,
+    };
+    console.log(userFinalScore);
+    localStorage.setItem("User Scores", JSON.stringify(userFinalScore));
+  }
 }
 
 // Questions Array
 var quizQuestions = [
   {
-    q: "Which of the following is not a HTML Sematic Element?",
+    q: "What is not a Primitive?",
     answer: [
-      { choice: "header", check: false },
       { choice: "div", check: true },
-      { choice: "figure", check: false },
-      { choice: "aside", check: false },
+      { choice: "string", check: false },
+      { choice: "boolean", check: false },
+      { choice: "bigint", check: false },
     ],
   },
   {
-    q: "What would be the proper syntax to start a media rule in CSS?",
+    q: "What is proper syntax for an array?",
     answer: [
-      { choice: "some", check: false },
-      { choice: "all", check: true },
-      { choice: "none", check: false },
-      { choice: "ok", check: false },
+      { choice: "||", check: false },
+      { choice: "{}", check: false },
+      { choice: "()'", check: false },
+      { choice: "[]", check: true },
     ],
   },
   {
     q: "Arrays use ___ as element indexes.",
     answer: [
-      { choice: "header", check: false },
-      { choice: "div", check: true },
+      { choice: "integers", check: true },
+      { choice: "symbol", check: false },
       { choice: "figure", check: false },
-      { choice: "aside", check: false },
+      { choice: "value", check: false },
     ],
   },
   {
-    q: "Which is the correct decending order of the DOM?",
+    q: "For loops are handy for?",
     answer: [
-      { choice: "header", check: false },
-      { choice: "div", check: true },
-      { choice: "figure", check: false },
-      { choice: "aside", check: false },
+      { choice: "Running a line of code once.", check: false },
+      { choice: "If you want to trigger an event once.", check: false },
+      {
+        choice: "If you want to run the same code over and over.",
+        check: true,
+      },
+      { choice: "Debugging code", check: false },
     ],
   },
 ];

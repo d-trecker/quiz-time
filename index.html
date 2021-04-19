@@ -10,12 +10,12 @@
   <body>
     <div>
       <header>
-        <h1 id="high-scores">View High Scores</h1>
+        <h1 id="high-scores">Javascript Quiz</h1>
         <div class="timer-s" id="timer-clock"></div>
       </header>
     </div>
 
-    <div class="container">
+    <div class="container" id="container">
       <div class="quiz-start" id="start-quiz">
         <p>
           Welcome to the Javascript quiz. Test your might and knowledge and
@@ -32,8 +32,17 @@
           <button class="button">4</button>
         </div>
       </div>
-      <div id="user-initials" class="hide">
-        <form action="Input your initials to save your score!"></form>
+      <div id="end-game" class="hide">
+        <div>
+          Test text
+          <form>
+            <label for="initial-enter" id="int-ent"
+              >Input your initials to save your score!</label
+            >
+            <input type="enter-initials" id="user-initials" />
+            <button class="save-button" id="saveButton">save</button>
+          </form>
+        </div>
       </div>
     </div>
     <script src="./assets/js/script.js"></script>
