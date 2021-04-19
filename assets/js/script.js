@@ -26,6 +26,7 @@ function countDown() {
     count--;
   } else if (count <= 0 && !alertBox) {
     alertBox = true;
+    endGame();
     return alert("You are out of time!");
   }
 }
