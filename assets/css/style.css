@@ -1,30 +1,117 @@
 :root {
   --primary-color: rgb(13, 13, 13);
   --second-color: #2836f4;
-  --third-color: #ff901f;
-  --fourth-color: #03f5f5;
+  --third-color: #6263635b;
+  --fourth-color: rgb(3, 245, 245);
   --fith-color: #626363;
+  --sixth-color: rgba(255, 9, 9, 0.659);
+}
+
+@font-face {
+  font-family: "storytime";
+  src: url(../fonts/yoster.ttf);
+  font-weight: 100px;
+  font-style: normal;
+}
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  margin: auto;
+  min-height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: inset 0 0 2000px 10px rgb(3, 245, 245);
+  /* filter: blur(10px); */
+  border-top: var(--third-color) solid 2px;
+  border-bottom: var(--third-color) solid 2px;
+  border-right: var(--third-color) solid 2rem;
+  border-left: var(--third-color) solid 2rem;
+  border-radius: 20%;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  width: 70%;
 }
 
 header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   font-weight: bold;
-  color: var(--fourth-color);
+  color: rgb(0, 249, 255);
+  margin: none;
+  width: 60%;
 }
 
-body {
-  background-color: black;
+h1 {
+  font-family: "storytime";
+  font-size: 3.5rem;
+  /* border-bottom: var(--fourth-color) 2px solid; */
+  margin-bottom: 10px;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: row;
+  font-size: 1.2rem;
+  white-space: pre;
+  border-top-right-radius: 20%;
+  border-top-left-radius: 20%;
+  padding: 0 30px;
+  background-color: rgba(0, 251, 0, 0.376);
+  border: var(--fith-color) solid 4px;
+  border-bottom: none;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  text-align: center;
   height: auto;
-  width: 100%;
-  background-color: var(--fith-color);
+  width: auto;
+  border-radius: 35px;
+  border: var(--fith-color) solid 2px;
+  padding: 10px;
+  background-color: var(--third-color);
+  max-height: 100%;
+  position: relative;
+}
+
+.start-text {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.end-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--fourth-color);
+}
+
+#multiple-questions {
+  width: 70%;
 }
 
 .question {
@@ -37,18 +124,27 @@ body {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  align-items: center;
+  max-height: 100%;
 }
 
 .button {
+  display: inline-block;
+  width: 15rem;
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 25px;
   border-radius: 50px;
-  font-size: 20px;
+  font-size: 1.2rem;
   font-weight: bold;
   background-color: black;
   color: var(--fourth-color);
   border: solid 2px var(--second-color);
+}
+
+.button:hover {
+  background: #730bec;
+  transition: 0.7s;
 }
 
 .quiz-start {
@@ -59,15 +155,87 @@ body {
   color: var(--fourth-color);
 }
 
-.button-start {
+.fun-button {
   padding: 25px;
   border-radius: 50px;
   background-color: black;
   color: var(--fourth-color);
   padding: 25px;
   font-weight: bold;
-  font-size: 5vw;
+  font-size: 3rem;
   border: solid 2px var(--second-color);
+  transition: 0.5s;
+}
+
+.fun-button:hover {
+  background: #730bec url(../images/pixel2.png);
+  transition-delay: 0.8s;
+  background-size: 195px;
+  animation: animate 1s steps(9) forwards;
+}
+
+@keyframes animate {
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: -480px;
+  }
+}
+
+.end-game {
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  background-color: var(--fith-color);
+  color: var(--fourth-color);
+  width: 50%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: black solid 2px;
+}
+
+.end-buttons {
+  font-size: 2.5rem;
+  padding: 5px;
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+
+.score-tab {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-top-right-radius: 35px;
+  border-top-left-radius: 35px;
+  padding: 0 30px;
+  color: rgb(3, 245, 245);
+  background-color: rgba(4, 0, 255, 0.376);
+  border: var(--fith-color) solid 4px;
+  border-bottom: none;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0px;
+}
+
+ul li {
+  margin: none;
 }
 
 .hide {

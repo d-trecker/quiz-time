@@ -3,8 +3,12 @@ const startButton = document.getElementById("start-button");
 const startQuiz = document.getElementById("start-quiz");
 const question = document.getElementById("questions");
 const answerButton = document.getElementById("answer-btn");
+const timeBox = document.getElementById("timer-box");
 const userInt = document.getElementById("end-game");
 const saveBtn = document.getElementById("saveButton");
+const scoreList = document.getElementById("score-list");
+
+const highScores = JSON.parse(localStorage.getItem('highScores')) || []
 
 var score = 0;
 var count = 60;
@@ -22,10 +26,16 @@ function countDown() {
   if (count < 60) {
     document.getElementById("timer-clock").innerHTML = count;
   }
+
+   if (count <= 10 ) {
+    timeBox.style.backgroundColor = "red";
+  } 
+
   if (count > 0) {
     count--;
   } else if (count <= 0 && !alertBox) {
     alertBox = true;
+    clearInterval(time);
     endGame();
     return alert("You are out of time!");
   }
@@ -114,15 +124,20 @@ function rightOrWrong(check) {
 function endGame() {
   container.classList.add("hide");
   userInt.classList.remove("hide");
+  timeBox.classList.add("hide");
+  clearInterval(time);
   //calculate final score
   var finalScore = (score / 4) * 100 + "%";
   //display final score
-  var contain = document.getElementById("container");
+  var contain = document.getElementById("int-ent");
   var endGameText = document.createElement("div");
   endGameText.style.padding = "10px";
-  endGameText.innerHTML =
+  endGameText.innerText =
     "Congrats you have completed the quiz you scored " + finalScore + ".";
-  contain.prepend(endGameText);
+  endGameText.style.color = "#03f5f5";
+  endGameText.style.fontSize = "20px";
+  endGameText.style.fontWeight = "bold";
+  contain.insertAdjacentElement("beforebegin", endGameText);
 
   //grabs username.
   var userName = document.getElementById("user-initials");
@@ -131,20 +146,37 @@ function endGame() {
     console.log(userName.value);
   });
 
-  saveBtn.addEventListener("click", saveGame);
+
 
   //----Save Button Function----
-  function saveGame() {
+   saveGame = e => {
+    e.preventDefault()
     console.log(finalScore);
     console.log(userName.value);
+
     //grabs username input and highscore.
     var userFinalScore = {
       User: userName.value,
       Score: finalScore,
     };
+
+    highScores.push(userFinalScore);
+
+    highScores.sort((a,b) => {
+      return b.userFinalScore - a.userFinalScore
+    })
+
+    highScores.splice(5);
+
     console.log(userFinalScore);
-    localStorage.setItem("User Scores", JSON.stringify(userFinalScore));
+    localStorage.setItem("highScores", JSON.stringify(highScores));
   }
+  saveBtn.addEventListener("click", saveGame);
+
+  scoreList.innerHTML = 
+  highScores.map(userFinalScore => {
+    return `<li class ="high-score">${userFinalScore.User} - ${userFinalScore.Score}`
+  }).join('');
 }
 
 // Questions Array
@@ -163,7 +195,7 @@ var quizQuestions = [
     answer: [
       { choice: "||", check: false },
       { choice: "{}", check: false },
-      { choice: "()'", check: false },
+      { choice: "()", check: false },
       { choice: "[]", check: true },
     ],
   },
